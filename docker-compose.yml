@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+
+  # PostgreSQL
+  postgresql:
+    image: postgres:15.2
+    restart: always
+    container_name: postgresql
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - my-network
+
+volumes:
+  postgres_data:
+
+
+networks:
+  my-network:
+    driver: bridge
